@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TV Shows</title>
+  <script src="https://unpkg.com/htmx.org@1.6.0/dist/htmx.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .show {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+    .show-title {
+      background-color: #f4f4f4;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .show a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid" id="tv-shows" 
+     hx-get="https://vidsrc.xyz/tvshows/latest/page-1.json" 
+     hx-trigger="load" 
+     hx-request='{"noHeaders": true}' 
+     hx-swap="none">
+</div>
+
+<script>
+  document.addEventListener('htmx:afterRequest', function(event) {
+    if (event.detail.elt.id === 'tv-shows') {
+      const response = event.detail.xhr.responseText;
+      const data = JSON.parse(response).result;
+
+      const showsContainer = document.getElementById('tv-shows');
+      showsContainer.innerHTML = ''; // Clear the container
+
+      data.forEach(show => {
+        const showElement = document.createElement('div');
+        showElement.classList.add('show');
+        showElement.innerHTML = `
+          <div class="show-title">
+            <a href="${show.embed_url}" target="_blank">${show.title}</a>
+          </div>
+        `;
+        showsContainer.appendChild(showElement);
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
