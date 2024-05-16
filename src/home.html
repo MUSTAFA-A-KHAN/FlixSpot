@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/styles/output.css" rel="stylesheet">
     <title class="text-red-700">TV Shows</title>
-
+    
 </head>
 
 <body class="bg-black">
+   <header>
+    <div hx-get="navbar/navbar.html" hx-trigger="load" hx-target="this"></div>
+   </header>
     <div class="container mx-auto py-8">
         <h1 class="text-3xl font-bold text-red-700">TV Shows</h1>
-        <a class="bg-blue-600" href="./search.html">Search here</a>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-red-700 " 
         id="tv-shows" 
         hx-get="https://vidsrc.xyz/tvshows/latest/page-1.json" 

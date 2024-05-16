@@ -1,0 +1,13 @@
+/* custom.css */
+
+/* Apply Tailwind CSS utility classes */
+.custom-link {
+    @apply bg-gray-900 text-white block text-center py-2 px-4;
+}
+
+/* Add your custom CSS */
+.custom-link {
+    /* Additional custom styles */
+    border-radius: 5px;
+    /* Other custom styles */
+}

@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TV Shows - Search</title>
+    <script src="https://unpkg.com/htmx.org@1.9.12"
+        integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
+        crossorigin="anonymous"></script>
     <link href="/styles/output.css" rel="stylesheet">
 </head>
 
 <body class="bg-black">
+    <header>
+        <div hx-get="navbar/navbar.html" hx-trigger="load" hx-target="this"></div>
+    </header>
+
     <div class="container mx-auto py-8">
         <h1 class="text-3xl font-bold mb-8 text-red-700">Search Results</h1>
         <!-- Search bar -->
@@ -20,7 +27,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/htmx.org@1.6.1/dist/htmx.js" integrity="sha384-dlyrM/sUh4+b/Zw3u6U2aHdcDUZ8OZ+7lQUXqklBb2hqy4i7VVnykwjoH44vJ0M8" crossorigin="anonymous"></script>
+    
     <script>
         const omdbConfig = {
             apiUrl: 'https://www.omdbapi.com/?apikey=8d5cb2e&s='
@@ -44,8 +51,8 @@
                                         <div class="p-4">
                                             <h2 class="text-lg font-bold mb-2">${show.Title}</h2>
                                             <p class="text-gray-500">${show.Year}</p>
-                                            <a href="https://vidsrc.xyz/embed/movie/${show.imdbID}"" class="text-blue-500 hover:underline" target="_blank">link 1</a>
-                                            <a href="https://vidsrc.xyz/embed/tv/${show.imdbID}"" class="text-blue-500 hover:underline" target="_blank">link 1</a>
+                                            <a href="https://vidsrc.xyz/embed/movie/${show.imdbID}"" class="text-blue-500 hover:underline" target="_blank">MOVIE</a>
+                                            <a href="https://vidsrc.xyz/embed/tv/${show.imdbID}"" class="text-blue-500 hover:underline" target="_blank">TV</a>
                                             <div class="flex justify-between items-center mt-2">
                                                 <a href="https://www.imdb.com/title/${show.imdbID}" class="text-blue-500 hover:underline" target="_blank">IMDb</a>
                                             </div>
