@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/FlixSpot/styles/output.css" rel="stylesheet">
     <title class="text-red-700">TV Shows</title>
+    <script src="https://unpkg.com/mustache@latest"></script>
     
 </head>
 
@@ -42,7 +43,7 @@
                 data.forEach(show => {
                     const card = `
                                  <div class="bg-gray-900 rounded-lg shadow-md overflow-hidden">
-                                    <img src="https://via.placeholder.com/300x150" alt="${show.title}" class="w-full h-48 object-cover object-center">
+                                    <img src="https://img.omdbapi.com/?apikey=8d5cb2e&i=${show.imdb_id}" alt="${show.title}" class="w-full h-48 object-cover object-center">
                                     <div class="p-4">
                                         <h2 class="text-lg font-bold mb-2">${show.title}</h2>
                                         <div class="flex justify-between items-center">
