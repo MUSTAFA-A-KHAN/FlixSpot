@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,31 +20,32 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-red-700 " 
         id="tv-shows" 
         hx-get="https://vidsrc.xyz/tvshows/latest/page-1.json" 
+        hx-swap="innerHTML" 
+        hx-target="#cardContainer"
+        mustache-template="cardTemplate"
         hx-trigger="load"
-        mustache-template="foo"
         hx-request='{"noHeaders": true}' 
-        hx-swap="innerHTML"
-        hx-target="#data">
+       
         </div>
     </div>
     </div>
-    <div id="pdf" class="text-gray-700">
-    </div>
-
-    <template id="foo">
-        {{#result}}
-       
-            <div class="py-2 px-4 border-b text-center"> {{embed_url}}</div>
-            <td class="py-2 px-4 border-b text-center" >{{id}}</td>
-            <td class="py-2 px-4 border-b text-center"> {{Email}}</td>
-            <td class="py-2 px-4 border-b text-center">{{address}}</td>
-        
-        {{/result}}
-    </template>
 
 
+<div id="cardContainer" class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
 
-    
+        <template id="cardTemplate">
+            {{#result}}
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="p-4">
+                    <h2 class="text-lg font-semibold text-gray-800">{{title}}</h2>
+                    <p class="text-gray-600">IMDB ID: {{imdb_id}}</p>
+                    <p class="text-gray-600">TMDB ID: {{tmdb_id}}</p>
+                    <a href="{{embed_url}}" target="_blank" class="text-red-600 hover:underline">Watch</a>
+                </div>
+            </div>
+            {{/result}}
+        </template>
 </body>
 
 </html>
@@ -56,49 +58,46 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- 
-<script src="https://unpkg.com/htmx.org@1.9.12"
-        integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
-        crossorigin="anonymous"></script>
-    <script>
-        document.addEventListener('htmx:afterRequest', function (event) {
-            if (event.detail.elt.id === 'tv-shows') {
-                const response = event.detail.xhr.responseText;
-                const data = JSON.parse(response).result;
 
-                const tvShowsContainer = document.getElementById('tv-shows');
-                tvShowsContainer.innerHTML = ''; // Clear the container
+<!DOCTYPE html>
+<html>
 
-                data.forEach(show => {
-                    const card = `
-                                 <div class="bg-gray-900 rounded-lg shadow-md overflow-hidden">
-                                    <img src="https://img.omdbapi.com/?apikey=8d5cb2e&i=${show.imdb_id}" alt="${show.title}" class="w-full h-300 object-cover object-center">
-                                    <div class="p-4">
-                                        <h2 class="text-lg font-bold mb-2">${show.title}</h2>
-                                        <div class="flex justify-between items-center">
-                                            <a href="${show.embed_url}" class="text-blue-500 hover:underline">Watch</a>
-                                            <a href="${show.embed_url_tmdb}" class="text-blue-500 hover:underline">More Info</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
-                    tvShowsContainer.insertAdjacentHTML('beforeend', card);
-                });
-            }
-        });
-    </script> -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+    <title>External Page</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/mustache@latest"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 p-6">
+    <div hx-ext="client-side-templates">
+        <button hx-get="https://vidsrc.xyz/tvshows/latest/page-1.json" hx-swap="innerHTML" hx-target="#cardContainer" hx-request='{"noHeaders": true}'
+            hx-trigger="click" mustache-template="cardTemplate"
+            class="bg-red-800 text-white px-4 py-2 rounded-md hover:bg-transparent hover:text-red-800 border border-red-800 transition-colors">
+            Press here to view TV shows
+        </button>
+
+        <div id="cardContainer" class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
+
+        <template id="cardTemplate">
+            {{#result}}
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="p-4">
+                    <h2 class="text-lg font-semibold text-gray-800">{{title}}</h2>
+                    <p class="text-gray-600">IMDB ID: {{imdb_id}}</p>
+                    <p class="text-gray-600">TMDB ID: {{tmdb_id}}</p>
+                    <a href="{{embed_url}}" target="_blank" class="text-red-600 hover:underline">Watch</a>
+                </div>
+            </div>
+            {{/result}}
+        </template>
+    </div>
+</body>
+
+</html> -->
