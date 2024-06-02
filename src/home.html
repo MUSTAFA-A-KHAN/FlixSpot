@@ -6,51 +6,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/FlixSpot/styles/output.css" rel="stylesheet">
-    <title class="text-red-700">TV Shows</title>
+    <title>TV Shows</title>
+    <script src="https://unpkg.com/htmx.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/client-side-templates.js"></script>
     <script src="https://unpkg.com/mustache@latest"></script>
-    
 </head>
 
 <body class="bg-black">
    <header>
-    <div hx-get="navbar/navbar.html" hx-trigger="load" hx-target="this"></div>
+        <div hx-get="navbar/navbar.html" hx-trigger="load" hx-target="this"></div>
    </header>
     <div class="container mx-auto py-8">
         <h1 class="text-3xl font-bold text-red-700">TV Shows</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-red-700 " 
-        id="tv-shows" 
-        hx-get="https://vidsrc.xyz/tvshows/latest/page-1.json" 
-        hx-swap="innerHTML" 
-        hx-target="#cardContainer"
-        mustache-template="cardTemplate"
-        hx-trigger="load"
-        hx-request='{"noHeaders": true}' 
-       
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-red-700"
+            id="cardContainer"
+            hx-get="https://vidsrc.xyz/tvshows/latest/page-1.json"
+            hx-swap="innerHTML"
+            hx-trigger="load"
+            hx-ext="client-side-templates"
+            mustache-template="cardTemplate"
+            hx-request='{"noHeaders": true}'>
         </div>
     </div>
-    </div>
 
-
-<div id="cardContainer" class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        </div>
-
-        <template id="cardTemplate">
-            {{#result}}
-            <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                <div class="p-4">
-                    <h2 class="text-lg font-semibold text-gray-800">{{title}}</h2>
-                    <p class="text-gray-600">IMDB ID: {{imdb_id}}</p>
-                    <p class="text-gray-600">TMDB ID: {{tmdb_id}}</p>
-                    <a href="{{embed_url}}" target="_blank" class="text-red-600 hover:underline">Watch</a>
-                </div>
+    <template id="cardTemplate">
+        {{#result}}
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div class="p-4">
+                <h2 class="text-lg font-semibold text-gray-800">{{title}}</h2>
+                <p class="text-gray-600">IMDB ID: {{imdb_id}}</p>
+                <p class="text-gray-600">TMDB ID: {{tmdb_id}}</p>
+                <a href="{{embed_url}}" target="_blank" class="text-red-600 hover:underline">Watch</a>
             </div>
-            {{/result}}
-        </template>
+        </div>
+        {{/result}}
+    </template>
 </body>
 
 </html>
-
-
 
 
 
