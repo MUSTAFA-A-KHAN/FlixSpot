@@ -20,15 +20,59 @@
         id="tv-shows" 
         hx-get="https://vidsrc.xyz/tvshows/latest/page-1.json" 
         hx-trigger="load"
+        mustache-template="foo"
         hx-request='{"noHeaders": true}' 
-        hx-swap="none">
+        hx-swap="innerHTML"
+        hx-target="#data">
         </div>
     </div>
     </div>
+    <div id="pdf" class="text-gray-700">
+    </div>
+
+    <template id="foo">
+        {{#data}}
+       
+            <div class="py-2 px-4 border-b text-center"> {{embed_url}}</div>
+            <td class="py-2 px-4 border-b text-center" >{{id}}</td>
+            <td class="py-2 px-4 border-b text-center"> {{Email}}</td>
+            <td class="py-2 px-4 border-b text-center">{{address}}</td>
+        
+        {{/data}}
+    </template>
 
 
 
-    <script src="https://unpkg.com/htmx.org@1.9.12"
+    
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<script src="https://unpkg.com/htmx.org@1.9.12"
         integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
         crossorigin="anonymous"></script>
     <script>
@@ -57,7 +101,4 @@
                 });
             }
         });
-    </script>
-</body>
-
-</html>
+    </script> -->
