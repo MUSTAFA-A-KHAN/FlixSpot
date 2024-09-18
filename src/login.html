@@ -4,80 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/styles/output.css" rel="stylesheet">
     <title>TV Shows - Search</title>
-    <script src="https://unpkg.com/htmx.org@1.9.12"
-        integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
-        crossorigin="anonymous"></script>
-    <link href="/FlixSpot/styles/output.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/client-side-templates.js"></script>
+    <script src="https://unpkg.com/mustache@latest"></script>
 </head>
 
-<body class="bg-black">
+<body class="bg-black text-white">
     <header>
         <div hx-get="navbar/navbar.html" hx-trigger="load" hx-target="this"></div>
     </header>
-
     <div class="container mx-auto py-8">
-        <h1 class="text-3xl font-bold mb-8 text-red-700">Search Results</h1>
-        <!-- Search bar -->
-        <div class="mb-4">
-            <input id="searchInput" type="text" placeholder="Search TV Shows"
-                class="px-4 py-2 border border-gray-300 rounded-md">
-            <button id="searchBtn" class="px-4 py-2 bg-blue-500 text-white rounded-md">Search</button>
-        </div>
-        <div id="searchResults" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <!-- Search results will be loaded here -->
+        <h1 class="text-3xl font-bold text-red-700">Search TV Shows</h1>
+        
+        <!-- Search Form -->
+        <form 
+              id="cardContainer"
+              hx-get="https://www.omdbapi.com/?apikey=8d5cb2e" 
+              hx-trigger="submit" 
+              hx-ext="client-side-templates"
+              hx-swap="innerHTML" 
+              mustache-template="cardTemplate"
+              hx-request='{"noHeaders": true}'>
+            <div class="mb-4">
+                <input name="s" type="text" placeholder="Search TV Shows" class="px-4 py-2 border border-gray-300 rounded-md" required>
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Search</button>
+            </div>
+        </form>
+
+        <div id="caridTemplate" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" hx-ext="client-side-templates" mustache-template="searchTemplate">
+            <!-- Results will be inserted here via htmx -->
         </div>
     </div>
 
-
-    <script>
-        const omdbConfig = {
-            apiUrl: 'https://www.omdbapi.com/?apikey=8d5cb2e&s='
-        };
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const searchInput = document.getElementById('searchInput');
-            const searchBtn = document.getElementById('searchBtn');
-            const searchResultsContainer = document.getElementById('searchResults');
-
-            function loadSearchResults(query) {
-                fetch(omdbConfig.apiUrl + query)
-                    .then(response => response.json())
-                    .then(data => {
-                        searchResultsContainer.innerHTML = ''; // Clear previous search results
-                        if (data.Response === 'True') {
-                            data.Search.forEach(show => {
-                                const card = `
-                                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                                        <img src="${show.Poster}" alt="${show.Title}" class="w-full h-48 object-cover object-center">
-                                        <div class="p-4">
-                                            <h2 class="text-lg font-bold mb-2">${show.Title}</h2>
-                                            <p class="text-gray-500">${show.Year} ${show.Type}</p>
-                                           <a href="https://vidsrc.xyz/embed/movie/${show.imdbID}" class="text-blue-500 hover:underline" target="_blank" id="movieLink" style="${show.Type === 'movie' ? '' : 'display:none;'}">MOVIE</a>
-                                           <a href="https://vidsrc.xyz/embed/tv/${show.imdbID}" class="text-blue-500 hover:underline" target="_blank" id="tvLink" style="${show.Type === 'series' ? '' : 'display:none;'}">TV</a>
-                                            <div class="flex justify-between items-center mt-2">
-                                                <a href="https://www.imdb.com/title/${show.imdbID}" class="text-blue-500 hover:underline" target="_blank">IMDb</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `;
-                                searchResultsContainer.insertAdjacentHTML('beforeend', card);
-                            });
-                        } else {
-                            searchResultsContainer.innerHTML = `<p>No results found.</p>`;
-                        }
-                    })
-                    .catch(error => console.error('Error loading search results:', error));
-            }
-
-            searchBtn.addEventListener('click', function () {
-                const query = searchInput.value.trim();
-                if (query !== '') {
-                    loadSearchResults(query);
-                }
-            });
-        });
-    </script>
+    <!-- Template for displaying search results -->
+    <template id="cardTemplate">
+        {{#Search}}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <img src="{{Poster}}" alt="{{Title}}" class="w-full h-48 object-cover object-center">
+            <div class="p-4">
+                <h2 class="text-lg font-bold mb-2 text-black">{{Title}} ({{Type}})</h2>
+                <p class="text-gray-500">{{Year}}</p>
+                <div class="flex flex-col">
+                    <a href="https://vidsrc.xyz/embed/movie/{{imdbID}}" class="text-blue-500 hover:underline" target="_blank">MOVIE</a>
+                    <a href="https://vidsrc.xyz/embed/tv/{{imdbID}}" class="text-blue-500 hover:underline" target="_blank">TV</a>
+                </div>
+                <div class="flex justify-between items-center mt-2">
+                    <a href="https://www.imdb.com/title/{{imdbID}}" class="text-blue-500 hover:underline" target="_blank">IMDb</a>
+                </div>
+            </div>
+        </div>
+        {{/Search}}
+        {{^Search}}
+        <p>No results found.</p>
+        {{/Search}}
+    </template>
 </body>
 
 </html>
