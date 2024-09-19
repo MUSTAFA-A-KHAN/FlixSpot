@@ -30,6 +30,9 @@
             height: 400px;
             /* Increase card height to 200px */
         }
+        .text-lg {
+        font-size: 1.5rem; /* Increase font size to 1.5rem (24px) */
+    }
     </style>
     <script src="https://unpkg.com/htmx.org"></script>
     <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/client-side-templates.js"></script>
@@ -73,7 +76,7 @@
                     <div class="text-center">
                         <h3 class="text-lg font-bold">{{Type}}</h3>
                         <h3 class="text-lg font-bold">{{Title}}</h3>
-                        <a href="https://vidsrc.xyz/embed/movie/{{imdbID}}" class="text-white hover:underline"
+                        <a href="https://vidsrc.xyz/embed/movie/{{imdbID}}" class="text-white  hover:underline"
                             target="_blank">MOVIE</a>
                         <a href="https://vidsrc.xyz/embed/tv/{{imdbID}}" class="text-white hover:underline"
                             target="_blank">TV</a>
