@@ -17,7 +17,7 @@
     </header>
     <div class="container mx-auto py-8">
         <h1 class="text-3xl font-bold text-red-700">Search TV Shows</h1>
-        
+
         <!-- Search Form -->
         <form 
               id="cardContainer"
@@ -41,6 +41,19 @@
     <!-- Template for displaying search results -->
     <template id="cardTemplate">
         {{#Search}}
+        <div class="group relative mb-6"> <!-- Added margin-bottom here -->
+            <div class="size-40 transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(720deg)] overflow-hidden">
+                <!-- Use Poster from the OMDb API response as background image -->
+                <div class="absolute inset-0 bg-cover bg-center transition-all duration-1000 group-hover:blur-lg bg-image" style="background-image: url('{{Poster}}');"></div>
+                <div class="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div class="text-center">
+                        <h3 class="text-lg font-bold">{{Title}}</h3>
+                        <a href="https://example.com" class="text-white underline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <img src="{{Poster}}" alt="{{Title}}" class="w-full h-48 object-cover object-center">
             <div class="p-4">
@@ -60,6 +73,7 @@
         <p>No results found.</p>
         {{/Search}}
     </template>
+    
 </body>
 
 </html>
