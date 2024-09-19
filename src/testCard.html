@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/FlixSpot/styles/output.css" rel="stylesheet">
+    <title>Document</title>
+    <style>
+      /* Ensure custom styles are applied correctly */
+      .group:hover .bg-image {
+          filter: blur(8px);
+      }
+      .group {
+          margin: 20px; /* Add 20px margin around each card */
+      }
+
+      .size-40 {
+          width: 300px; /* Increase card width to 300px */
+          height: 200px; /* Increase card height to 200px */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="group relative">
+      <div class="size-40 overflow-hidden transition-all duration-1000 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+        <div class="bg-image absolute inset-0 bg-[url('https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg')] bg-cover bg-center transition-all duration-1000 group-hover:blur-lg"></div>
+        <div class="absolute inset-0 flex items-center justify-center text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div class="text-center">
+            <h3 class="text-lg font-bold">Cyber Kitty</h3>
+            <a href="https://example.com" class="text-white underline">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <input type="color" />
+  </body>
+</html>
