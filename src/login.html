@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/styles/output.css" rel="stylesheet">
     <title>TV Shows - Search</title>
+    <style>
+        /* Ensure custom styles are applied correctly */
+        .group:hover .bg-image {
+            filter: blur(8px);
+        }
+    </style>
     <script src="https://unpkg.com/htmx.org"></script>
     <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/client-side-templates.js"></script>
     <script src="https://unpkg.com/mustache@latest"></script>
@@ -41,20 +47,20 @@
     <!-- Template for displaying search results -->
     <template id="cardTemplate">
         {{#Search}}
-        <div class="group relative mb-6"> <!-- Added margin-bottom here -->
+        <div class="group relative">
             <div class="size-40 transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(720deg)] overflow-hidden">
-                <!-- Use Poster from the OMDb API response as background image -->
                 <div class="absolute inset-0 bg-cover bg-center transition-all duration-1000 group-hover:blur-lg bg-image" style="background-image: url('{{Poster}}');"></div>
                 <div class="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div class="text-center">
+                        <h3 class="text-lg font-bold">{{Type}}</h3>
                         <h3 class="text-lg font-bold">{{Title}}</h3>
-                        <a href="https://example.com" class="text-white underline">Learn More</a>
-                    </div>
+                        <a href="https://vidsrc.xyz/embed/movie/{{imdbID}}" class="text-white hover:underline" target="_blank">MOVIE</a>
+                    <a href="https://vidsrc.xyz/embed/tv/{{imdbID}}" class="text-white hover:underline" target="_blank">TV</a>
+                        </div>
                 </div>
             </div>
         </div>
-
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <!-- <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <img src="{{Poster}}" alt="{{Title}}" class="w-full h-48 object-cover object-center">
             <div class="p-4">
                 <h2 class="text-lg font-bold mb-2 text-black">{{Title}} ({{Type}})</h2>
@@ -67,7 +73,7 @@
                     <a href="https://www.imdb.com/title/{{imdbID}}" class="text-blue-500 hover:underline" target="_blank">IMDb</a>
                 </div>
             </div>
-        </div>
+        </div> -->
         {{/Search}}
         {{^Search}}
         <p>No results found.</p>
